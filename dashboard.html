@@ -902,6 +902,43 @@
         }
       }
       /* it ends here */
+
+      /* toast notification on apply funds clicked */
+      /* Toast Notification Styles */
+      .toast-container {
+        position: fixed;
+        bottom: 20px;
+        left: 0;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        z-index: 9999;
+      }
+
+      .custom-toast {
+        background-color: var(--white);
+        color: var(--dark-green);
+        padding: 16px 24px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        max-width: 90%;
+        width: fit-content;
+        transform: translateY(20px);
+        opacity: 0;
+        transition: all 0.3s ease;
+        border-left: 4px solid var(--primary-green);
+      }
+
+      .custom-toast i {
+        color: var(--primary-green);
+        font-size: 1.2rem;
+      }
+      /* it ends here */
     </style>
   </head>
   <body>
@@ -978,7 +1015,7 @@
                 </button>
               </div>
               <div class="balance-amount" id="userBalance">₦ 0.00</div>
-              <div>deposit needed:  <span id="currentFunds">₦ 0.00</span></div>
+              <div>Available funds: <span id="currentFunds">₦ 0.00</span></div>
               <div class="balance-actions">
                 <button class="balance-btn" id="depositBtn">
                   <i class="fas fa-plus"></i>
@@ -1280,7 +1317,7 @@
                   <div class="account-detail">
                     <span class="detail-label">Account Number</span>
                     <div class="detail-value">
-                      <span>2389902652</span>
+                      <span>43555467766</span>
                       <button class="copy-btn" title="Copy to clipboard">
                         <i class="fas fa-copy"></i>
                       </button>
@@ -1764,7 +1801,7 @@
         const copyBtn = document.querySelector(".copy-btn");
 
         copyBtn.addEventListener("click", function () {
-          const accountNumber = "2389902652";
+          const accountNumber = "43555467766";
           navigator.clipboard
             .writeText(accountNumber)
             .then(() => {
@@ -1780,6 +1817,56 @@
             .catch((err) => {
               console.error("Failed to copy: ", err);
             });
+        });
+      });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Get the Apply Now button using a more specific selector
+        const applyNowBtn = document.querySelector(
+          ".dashboard-cards .card:nth-child(1) .card-btn.funding-btn"
+        );
+
+        // Create toast container if it doesn't exist
+        let toastContainer = document.querySelector(".toast-container");
+        if (!toastContainer) {
+          toastContainer = document.createElement("div");
+          toastContainer.className = "toast-container";
+          document.body.appendChild(toastContainer);
+        }
+
+        // Add click event listener
+        applyNowBtn.addEventListener("click", function () {
+          // Create toast
+          const toast = document.createElement("div");
+          toast.className = "custom-toast";
+
+          // Add icon
+          const icon = document.createElement("i");
+          icon.className = "fas fa-check-circle";
+
+          // Add text
+          const text = document.createElement("span");
+          text.textContent =
+            "Funds have already been disbursed to your account";
+
+          // Append elements
+          toast.appendChild(icon);
+          toast.appendChild(text);
+          toastContainer.appendChild(toast);
+
+          // Trigger animation
+          setTimeout(() => {
+            toast.style.transform = "translateY(0)";
+            toast.style.opacity = "1";
+          }, 10);
+
+          // Remove toast after 4 seconds
+          setTimeout(() => {
+            toast.style.transform = "translateY(-20px)";
+            toast.style.opacity = "0";
+            setTimeout(() => toast.remove(), 300);
+          }, 4000);
         });
       });
     </script>
