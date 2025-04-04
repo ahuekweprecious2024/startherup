@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StartHerUp - Funding Platform for Women Entrepreneurs</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary-green: #2ecc71;
+        --dark-green: #27ae60;
+        --light-green: #e8f8f2;
+        --white: #ffffff;
+        --light-gray: #f9f9f9;
+        --dark-gray: #333333;
+        --transition: all 0.3s ease;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", Arial, sans-serif;
+      }
+
+      body {
+        color: var(--dark-gray);
+        background-color: var(--white);
+        font-size: 16px;
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Header Styles */
+      header {
+        background-color: var(--white);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        width: 100%;
+        z-index: 1000;
+      }
+
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 0;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+      }
+
+      .logo img {
+        height: 40px;
+        margin-right: 10px;
+      }
+
+      .logo h1 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--primary-green);
+      }
+
+      .logo span {
+        color: var(--dark-gray);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 30px;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: var(--dark-gray);
+        font-weight: 500;
+        transition: var(--transition);
+      }
+
+      .nav-links a:hover {
+        color: var(--primary-green);
+      }
+
+      .cta-button {
+        background-color: var(--primary-green);
+        color: var(--white);
+        padding: 10px 25px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: var(--transition);
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      .cta-button:hover {
+        background-color: var(--dark-green);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(46, 204, 113, 0.2);
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 1.5rem;
+        color: var(--dark-gray);
+      }
+
+      /* Hero Section */
+      .hero {
+        padding: 160px 0 100px;
+        background: linear-gradient(135deg, var(--light-green), var(--white));
+        text-align: center;
+      }
+
+      .hero-content {
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      .hero h2 {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: var(--dark-gray);
+      }
+
+      .hero p {
+        font-size: 1.2rem;
+        margin-bottom: 40px;
+        color: var(--dark-gray);
+      }
+
+      .hero-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+      }
+
+      .secondary-button {
+        background-color: var(--white);
+        color: var(--primary-green);
+        padding: 10px 25px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: var(--transition);
+        border: 2px solid var(--primary-green);
+      }
+
+      .secondary-button:hover {
+        background-color: var(--light-green);
+        transform: translateY(-2px);
+      }
+
+      /* Features Section */
+      .features {
+        padding: 100px 0;
+        background-color: var(--white);
+      }
+
+      .section-header {
+        text-align: center;
+        margin-bottom: 60px;
+      }
+
+      .section-header h3 {
+        font-size: 2.5rem;
+        color: var(--dark-gray);
+        margin-bottom: 20px;
+      }
+
+      .section-header p {
+        font-size: 1.1rem;
+        color: #666;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 40px;
+      }
+
+      .feature-card {
+        background-color: var(--white);
+        border-radius: 10px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        transition: var(--transition);
+        text-align: center;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      }
+
+      .feature-icon {
+        width: 70px;
+        height: 70px;
+        background-color: var(--light-green);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        color: var(--primary-green);
+        font-size: 1.8rem;
+      }
+
+      .feature-card h4 {
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+        color: var(--dark-gray);
+      }
+
+      .feature-card p {
+        color: #666;
+      }
+
+      /* How It Works */
+      .how-it-works {
+        padding: 100px 0;
+        background-color: var(--light-green);
+      }
+
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        margin-top: 50px;
+      }
+
+      .step {
+        text-align: center;
+        position: relative;
+      }
+
+      .step-number {
+        width: 50px;
+        height: 50px;
+        background-color: var(--primary-green);
+        color: var(--white);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin: 0 auto 20px;
+      }
+
+      .step h4 {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+      }
+
+      .step p {
+        color: #666;
+      }
+
+      .step:not(:last-child):after {
+        content: "";
+        position: absolute;
+        top: 25px;
+        right: -15%;
+        width: 30%;
+        height: 2px;
+        background-color: var(--primary-green);
+      }
+
+      /* Testimonials Section */
+      .testimonials {
+        padding: 100px 0;
+        background-color: var(--white);
+      }
+
+      .testimonial-container {
+        max-width: 800px;
+        margin: 0 auto;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .testimonial-slider {
+        display: flex;
+        transition: transform 0.5s ease;
+      }
+
+      .testimonial {
+        flex: 0 0 100%;
+        background-color: var(--light-green);
+        border-radius: 10px;
+        padding: 40px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        text-align: center;
+      }
+
+      .testimonial-avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin: 0 auto 20px;
+        border: 3px solid var(--primary-green);
+      }
+
+      .testimonial-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .testimonial-text {
+        font-size: 1.1rem;
+        margin-bottom: 20px;
+        color: #444;
+        font-style: italic;
+      }
+
+      .testimonial-author {
+        font-weight: 700;
+        color: var(--dark-gray);
+      }
+
+      .testimonial-role {
+        font-size: 0.9rem;
+        color: #666;
+      }
+
+      .testimonial-controls {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      .testimonial-controls button {
+        background-color: var(--white);
+        color: var(--primary-green);
+        border: 1px solid var(--primary-green);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .testimonial-controls button:hover {
+        background-color: var(--primary-green);
+        color: var(--white);
+      }
+
+      /* CTA Section */
+      .cta-section {
+        padding: 100px 0;
+        background: linear-gradient(
+          135deg,
+          var(--primary-green),
+          var(--dark-green)
+        );
+        color: var(--white);
+        text-align: center;
+      }
+
+      .cta-content {
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      .cta-section h3 {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+      }
+
+      .cta-section p {
+        font-size: 1.2rem;
+        margin-bottom: 40px;
+        opacity: 0.9;
+      }
+
+      .cta-section .cta-button {
+        background-color: var(--white);
+        color: var(--primary-green);
+        font-size: 1.1rem;
+        padding: 15px 40px;
+      }
+
+      .cta-section .cta-button:hover {
+        background-color: rgba(255, 255, 255, 0.9);
+        color: var(--dark-green);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--dark-gray);
+        color: var(--white);
+        padding: 70px 0 20px;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 40px;
+        margin-bottom: 50px;
+      }
+
+      .footer-col h5 {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+        position: relative;
+        padding-bottom: 10px;
+      }
+
+      .footer-col h5:after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 50px;
+        height: 2px;
+        background-color: var(--primary-green);
+      }
+
+      .footer-col ul {
+        list-style: none;
+      }
+
+      .footer-col ul li {
+        margin-bottom: 10px;
+      }
+
+      .footer-col ul li a {
+        color: #ccc;
+        text-decoration: none;
+        transition: var(--transition);
+      }
+
+      .footer-col ul li a:hover {
+        color: var(--primary-green);
+        padding-left: 5px;
+      }
+
+      .footer-col p {
+        color: #ccc;
+        margin-bottom: 15px;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 15px;
+      }
+
+      .social-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: var(--white);
+        transition: var(--transition);
+        text-decoration: none;
+      }
+
+      .social-links a:hover {
+        background-color: var(--primary-green);
+        transform: translateY(-5px);
+      }
+
+      .copyright {
+        text-align: center;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: #999;
+        font-size: 0.9rem;
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 992px) {
+        .steps {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+
+        .step:not(:last-child):after {
+          display: none;
+        }
+
+        .footer-content {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .navbar {
+          padding: 15px 0;
+        }
+
+        .nav-links {
+          position: fixed;
+          top: 80px;
+          right: -100%;
+          flex-direction: column;
+          gap: 0;
+          background-color: var(--white);
+          width: 300px;
+          height: calc(100vh - 80px);
+          padding: 40px 0;
+          box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+          transition: 0.5s;
+        }
+
+        .nav-links.active {
+          right: 0;
+        }
+
+        .nav-links a {
+          display: block;
+          padding: 15px 30px;
+          border-bottom: 1px solid #eee;
+        }
+
+        .mobile-menu-btn {
+          display: block;
+        }
+
+        .hero {
+          padding: 120px 0 80px;
+        }
+
+        .hero h2 {
+          font-size: 2.2rem;
+        }
+
+        .hero p {
+          font-size: 1rem;
+        }
+
+        .hero-buttons {
+          flex-direction: column;
+          align-items: center;
+          gap: 15px;
+        }
+
+        .features-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .section-header h3 {
+          font-size: 2rem;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .footer-content {
+          grid-template-columns: 1fr;
+        }
+
+        .cta-section h3 {
+          font-size: 2rem;
+        }
+      }
+
+      a {
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container">
+        <nav class="navbar">
+          <div class="logo">
+            <h1>Start<span>Her</span>Up</h1>
+          </div>
+          <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#testimonials">Success Stories</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+          <button class="cta-button nav-cta">Get Started</button>
+          <button class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="hero-content">
+          <h2>Complete Your Funding & Start Your Business</h2>
+          <p>
+            StartHerUp helps women entrepreneurs bridge the gap between current
+            funds and what they need to launch their business dreams.
+          </p>
+          <div class="hero-buttons">
+            <a href="registration.html">
+              <button class="cta-button">Apply for Funding</button>
+            </a>
+            <button class="secondary-button">Learn More</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+      <div class="container">
+        <div class="section-header">
+          <h3>Why Choose StartHerUp?</h3>
+          <p>
+            We provide a supportive platform designed specifically for women
+            entrepreneurs to help them achieve their business goals.
+          </p>
+        </div>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-money-bill-wave"></i>
+            </div>
+            <h4>Flexible Funding</h4>
+            <p>
+              Access gap funding to complement your existing capital and bring
+              your business vision to life.
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <h4>Community Support</h4>
+            <p>
+              Connect with a community of like-minded women entrepreneurs and
+              industry experts.
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-lightbulb"></i>
+            </div>
+            <h4>Business Mentoring</h4>
+            <p>
+              Receive guidance from successful entrepreneurs who understand your
+              journey.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+      <div class="container">
+        <div class="section-header">
+          <h3>How It Works</h3>
+          <p>
+            Our simple three-step process makes it easy to apply for and receive
+            the funding you need.
+          </p>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h4>Apply Online</h4>
+            <p>
+              Complete our simple application form and tell us about your
+              business and funding needs.
+            </p>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h4>Get Matched</h4>
+            <p>
+              We match you with investors and funding options that align with
+              your business goals.
+            </p>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <h4>Receive Funding</h4>
+            <p>
+              Once approved, receive your funding and start building your
+              business with our support.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+      <div class="container">
+        <div class="section-header">
+          <h3>Success Stories</h3>
+          <p>
+            Hear from women who have successfully launched their businesses with
+            our help.
+          </p>
+        </div>
+        <div class="testimonial-container">
+          <div class="testimonial-slider">
+            <div class="testimonial">
+              <div class="testimonial-avatar">
+                <img
+                  src="https://tse3.mm.bing.net/th?id=OIF.JBrMwZUT%2bx20GGCTYhKQ%2fA&rs=1&pid=ImgDetMain"
+                  alt="Sarah Johnson"
+                />
+              </div>
+              <p class="testimonial-text">
+                "StartHerUp helped me secure the final 30% of funding I needed
+                to open my bakery. The process was straightforward, and the
+                support has been invaluable."
+              </p>
+              <h4 class="testimonial-author">Sarah Johnson</h4>
+              <p class="testimonial-role">Founder, Sweet Delights Bakery</p>
+            </div>
+            <div class="testimonial">
+              <div class="testimonial-avatar">
+                <img
+                  src="https://th.bing.com/th/id/OIP.50IKfP8e4IJQxDiwSuJcZwHaE8?w=227&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7"
+                  alt="Maria Garcia"
+                />
+              </div>
+              <p class="testimonial-text">
+                "The mentorship and funding I received through StartHerUp
+                transformed my side hustle into a thriving tech company. I
+                couldn't have done it without them!"
+              </p>
+              <h4 class="testimonial-author">Maria Garcia</h4>
+              <p class="testimonial-role">CEO, Connect Solutions</p>
+            </div>
+            <div class="testimonial">
+              <div class="testimonial-avatar">
+                <img
+                  src="https://th.bing.com/th/id/R.7f93e0a71d5994b8b0b0e2a7e7fe612d?rik=P%2fS9SLcNYFhr%2bw&pid=ImgRaw&r=0"
+                  alt="Jasmine Wong"
+                />
+              </div>
+              <p class="testimonial-text">
+                "When traditional banks turned me down, StartHerUp believed in
+                my vision. Now my sustainable fashion brand ships to customers
+                worldwide."
+              </p>
+              <h4 class="testimonial-author">Jasmine Wong</h4>
+              <p class="testimonial-role">Founder, EcoChic Fashion</p>
+            </div>
+          </div>
+          <div class="testimonial-controls">
+            <button class="prev-btn">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="next-btn">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-content">
+          <h3>Ready to Launch Your Business?</h3>
+          <p>
+            Join thousands of women entrepreneurs who have achieved their
+            business goals with StartHerUp.
+          </p>
+          <button class="cta-button">Apply Now</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-col">
+            <h5>About Us</h5>
+            <p>
+              StartHerUp is dedicated to empowering women entrepreneurs by
+              providing the funding and support they need to succeed in
+              business.
+            </p>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+          <div class="footer-col">
+            <h5>Quick Links</h5>
+            <ul>
+              <li><a href="#home">Home</a></li>
+              <li><a href="#features">Features</a></li>
+              <li><a href="#how-it-works">How It Works</a></li>
+              <li><a href="#testimonials">Success Stories</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5>Contact Us</h5>
+            <p>
+              <i class="fas fa-map-marker-alt"></i> Ranix Avenue, Suite 200, San
+              Francisco, CA 94107
+            </p>
+            <p><i class="fas fa-phone"></i> +1 (434)-653-73</p>
+            <p><i class="fas fa-envelope"></i> aladefavour134@gmail.com</p>
+          </div>
+        </div>
+        <div class="copyright">
+          <p>&copy; 2025 StartHerUp. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+      // Mobile Menu Toggle
+      const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
+      const navLinks = document.querySelector(".nav-links");
+
+      mobileMenuBtn.addEventListener("click", () => {
+        navLinks.classList.toggle("active");
+        mobileMenuBtn.innerHTML = navLinks.classList.contains("active")
+          ? '<i class="fas fa-times"></i>'
+          : '<i class="fas fa-bars"></i>';
+      });
+
+      // Testimonial Slider
+      const testimonialSlider = document.querySelector(".testimonial-slider");
+      const prevBtn = document.querySelector(".prev-btn");
+      const nextBtn = document.querySelector(".next-btn");
+      let slideIndex = 0;
+
+      function showSlide(index) {
+        testimonialSlider.style.transform = `translateX(-${index * 100}%)`;
+      }
+
+      prevBtn.addEventListener("click", () => {
+        slideIndex = slideIndex === 0 ? 2 : slideIndex - 1;
+        showSlide(slideIndex);
+      });
+
+      nextBtn.addEventListener("click", () => {
+        slideIndex = slideIndex === 2 ? 0 : slideIndex + 1;
+        showSlide(slideIndex);
+      });
+
+      // Auto slide
+      setInterval(() => {
+        slideIndex = slideIndex === 2 ? 0 : slideIndex + 1;
+        showSlide(slideIndex);
+      }, 6000);
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            const headerOffset = 80;
+            const elementPosition = target.getBoundingClientRect().top;
+            const offsetPosition =
+              elementPosition + window.pageYOffset - headerOffset;
+
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: "smooth",
+            });
+
+            // Close mobile menu if open
+            navLinks.classList.remove("active");
+            mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+          }
+        });
+      });
+
+      // CTA buttons functionality
+      const ctaButtons = document.querySelectorAll(".cta-button");
+      ctaButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          alert("Loading....");
+        });
+      });
+
+      // Secondary buttons functionality
+      const secondaryButtons = document.querySelectorAll(".secondary-button");
+      secondaryButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          document.querySelector("#how-it-works").scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+            inline: "nearest",
+            offsetTop: 80,
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StartHerUp - Registration</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary-green: #2ecc71;
+        --dark-green: #27ae60;
+        --light-green: #e8f8f2;
+        --white: #ffffff;
+        --light-gray: #f9f9f9;
+        --dark-gray: #333333;
+        --transition: all 0.3s ease;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", Arial, sans-serif;
+      }
+
+      body {
+        color: var(--dark-gray);
+        background-color: var(--light-green);
+        font-size: 16px;
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Header Styles */
+      header {
+        background-color: var(--white);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        width: 100%;
+        z-index: 1000;
+      }
+
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 0;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+      }
+
+      .logo h1 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--primary-green);
+      }
+
+      .logo span {
+        color: var(--dark-gray);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 30px;
+        list-style: none;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: var(--dark-gray);
+        font-weight: 500;
+        transition: var(--transition);
+      }
+
+      .nav-links a:hover {
+        color: var(--primary-green);
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 1.5rem;
+        color: var(--dark-gray);
+      }
+
+      /* Registration Form */
+      .registration-section {
+        padding: 140px 0 80px;
+      }
+
+      .registration-container {
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: var(--white);
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+
+      .registration-header {
+        padding: 30px;
+        background: linear-gradient(
+          135deg,
+          var(--primary-green),
+          var(--dark-green)
+        );
+        color: var(--white);
+        text-align: center;
+      }
+
+      .registration-header h2 {
+        font-size: 2.2rem;
+        margin-bottom: 10px;
+      }
+
+      .registration-header p {
+        opacity: 0.9;
+      }
+
+      .registration-form {
+        padding: 40px;
+      }
+
+      .form-group {
+        margin-bottom: 25px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: var(--dark-gray);
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: var(--transition);
+      }
+
+      .form-control:focus {
+        border-color: var(--primary-green);
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.2);
+      }
+
+      .form-row {
+        display: flex;
+        gap: 20px;
+      }
+
+      .form-row .form-group {
+        flex: 1;
+      }
+
+      .submit-btn {
+        width: 100%;
+        padding: 15px;
+        border: none;
+        border-radius: 8px;
+        background-color: var(--primary-green);
+        color: var(--white);
+        font-size: 18px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .submit-btn:hover {
+        background-color: var(--dark-green);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(46, 204, 113, 0.3);
+      }
+
+      textarea.form-control {
+        resize: vertical;
+        min-height: 120px;
+      }
+
+      .error-message {
+        color: #e74c3c;
+        font-size: 14px;
+        margin-top: 5px;
+        display: none;
+      }
+
+      .login-link {
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .login-link a {
+        color: var(--primary-green);
+        text-decoration: none;
+        font-weight: 500;
+        transition: var(--transition);
+      }
+
+      .login-link a:hover {
+        color: var(--dark-green);
+        text-decoration: underline;
+      }
+
+      /* Loading spinner */
+      .spinner-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        display: none;
+      }
+
+      .spinner {
+        width: 50px;
+        height: 50px;
+        border: 5px solid #f3f3f3;
+        border-top: 5px solid var(--primary-green);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--dark-gray);
+        color: var(--white);
+        padding: 30px 0;
+        margin-top: 80px;
+      }
+
+      .copyright {
+        text-align: center;
+        color: #999;
+        font-size: 0.9rem;
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 768px) {
+        .navbar {
+          padding: 15px 0;
+        }
+
+        .nav-links {
+          position: fixed;
+          top: 80px;
+          right: -100%;
+          flex-direction: column;
+          gap: 0;
+          background-color: var(--white);
+          width: 300px;
+          height: calc(100vh - 80px);
+          padding: 40px 0;
+          box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+          transition: 0.5s;
+        }
+
+        .nav-links.active {
+          right: 0;
+        }
+
+        .nav-links a {
+          display: block;
+          padding: 15px 30px;
+          border-bottom: 1px solid #eee;
+        }
+
+        .mobile-menu-btn {
+          display: block;
+        }
+
+        .registration-form {
+          padding: 20px;
+        }
+
+        .form-row {
+          flex-direction: column;
+          gap: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Loading Spinner -->
+    <div class="spinner-overlay" id="spinner">
+      <div class="spinner"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+      <div class="container">
+        <nav class="navbar">
+          <div class="logo">
+            <h1>Start<span>Her</span>Up</h1>
+          </div>
+          <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#features">Features</a></li>
+            <li><a href="index.html#how-it-works">How It Works</a></li>
+            <li><a href="index.html#testimonials">Success Stories</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+          </ul>
+          <button class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Registration Section -->
+    <section class="registration-section">
+      <div class="container">
+        <div class="registration-container">
+          <div class="registration-header">
+            <h2>Create Your Account</h2>
+            <p>
+              Join our community of women entrepreneurs and get the funding you
+              need
+            </p>
+          </div>
+          <div class="registration-form">
+            <form id="registrationForm">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="fullName">Full Name</label>
+                  <input
+                    type="text"
+                    id="fullName"
+                    class="form-control"
+                    placeholder="Enter your full name"
+                    required
+                  />
+                  <div class="error-message" id="fullNameError">
+                    Please enter your full name
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="surname">Surname</label>
+                  <input
+                    type="text"
+                    id="surname"
+                    class="form-control"
+                    placeholder="Enter your surname"
+                    required
+                  />
+                  <div class="error-message" id="surnameError">
+                    Please enter your surname
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input
+                  type="email"
+                  id="email"
+                  class="form-control"
+                  placeholder="Enter your email address"
+                  required
+                />
+                <div class="error-message" id="emailError">
+                  Please enter a valid email address
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="businessAddress">Business Address</label>
+                <input
+                  type="text"
+                  id="businessAddress"
+                  class="form-control"
+                  placeholder="Enter your business address"
+                  required
+                />
+                <div class="error-message" id="businessAddressError">
+                  Please enter your business address
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="currentFunds"
+                    >Current Funds in your bank (₦)</label
+                  >
+                  <input
+                    type="number"
+                    id="currentFunds"
+                    class="form-control"
+                    placeholder="How much do you already have?"
+                    min="0"
+                    step="1000"
+                    required
+                  />
+                  <div class="error-message" id="currentFundsError">
+                    Please enter a valid amount
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="neededFunds">Funds Needed (₦)</label>
+                  <input
+                    type="number"
+                    id="neededFunds"
+                    class="form-control"
+                    placeholder="How much do you need?"
+                    min="0"
+                    step="1000"
+                    required
+                  />
+                  <div class="error-message" id="neededFundsError">
+                    Please enter a valid amount
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="businessDescription">Business Description</label>
+                <textarea
+                  id="businessDescription"
+                  class="form-control"
+                  placeholder="Tell us about your business idea..."
+                  required
+                ></textarea>
+                <div class="error-message" id="businessDescriptionError">
+                  Please describe your business
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <input
+                    type="password"
+                    id="password"
+                    class="form-control"
+                    placeholder="Create a password"
+                    required
+                  />
+                  <div class="error-message" id="passwordError">
+                    Password must be at least 6 characters
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="confirmPassword">Confirm Password</label>
+                  <input
+                    type="password"
+                    id="confirmPassword"
+                    class="form-control"
+                    placeholder="Confirm your password"
+                    required
+                  />
+                  <div class="error-message" id="confirmPasswordError">
+                    Passwords do not match
+                  </div>
+                </div>
+              </div>
+
+              <button type="submit" class="submit-btn">Register Now</button>
+
+              <div class="login-link">
+                Already have an account? <a href="login.html">Log in here</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="copyright">
+          <p>&copy; 2025 StartHerUp. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Firebase SDK -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-app-compat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-auth-compat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-database-compat.min.js"></script>
+
+    <!-- JavaScript -->
+    <script>
+      // Firebase configuration
+      const firebaseConfig = {
+        // Replace with your Firebase project configuration
+        apiKey: "AIzaSyCgOvIkDCcS3DFrt5f6Y7pYmjCoHIfDF9U",
+        authDomain: "moniebase-b4b4d.firebaseapp.com",
+        projectId: "moniebase-b4b4d",
+        storageBucket: "YOUR_STORAGE_BUCKET",
+        messagingSenderId: "1009678808253 ",
+        appId: "1:1009678808253:android:ff94e94c52bad2db7973d4",
+        databaseURL: "https://moniebase-b4b4d-default-rtdb.firebaseio.com/",
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+
+      // Get Firebase services
+      const auth = firebase.auth();
+      const database = firebase.database();
+
+      // Mobile Menu Toggle
+      const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
+      const navLinks = document.querySelector(".nav-links");
+
+      mobileMenuBtn.addEventListener("click", () => {
+        navLinks.classList.toggle("active");
+        mobileMenuBtn.innerHTML = navLinks.classList.contains("active")
+          ? '<i class="fas fa-times"></i>'
+          : '<i class="fas fa-bars"></i>';
+      });
+
+      // Form Validation
+      const registrationForm = document.getElementById("registrationForm");
+      const spinner = document.getElementById("spinner");
+
+      // Show an error message
+      function showError(elementId, message) {
+        const errorElement = document.getElementById(elementId);
+        errorElement.textContent = message;
+        errorElement.style.display = "block";
+      }
+
+      // Hide an error message
+      function hideError(elementId) {
+        document.getElementById(elementId).style.display = "none";
+      }
+
+      // Validate form fields
+      function validateForm() {
+        let isValid = true;
+
+        // Full Name validation
+        const fullName = document.getElementById("fullName").value.trim();
+        if (!fullName) {
+          showError("fullNameError", "Please enter your full name");
+          isValid = false;
+        } else {
+          hideError("fullNameError");
+        }
+
+        // Surname validation
+        const surname = document.getElementById("surname").value.trim();
+        if (!surname) {
+          showError("surnameError", "Please enter your surname");
+          isValid = false;
+        } else {
+          hideError("surnameError");
+        }
+
+        // Email validation
+        const email = document.getElementById("email").value.trim();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!email || !emailRegex.test(email)) {
+          showError("emailError", "Please enter a valid email address");
+          isValid = false;
+        } else {
+          hideError("emailError");
+        }
+
+        // Business Address validation
+        const businessAddress = document
+          .getElementById("businessAddress")
+          .value.trim();
+        if (!businessAddress) {
+          showError(
+            "businessAddressError",
+            "Please enter your business address"
+          );
+          isValid = false;
+        } else {
+          hideError("businessAddressError");
+        }
+
+        // Current Funds validation
+        const currentFunds = document.getElementById("currentFunds").value;
+        if (
+          !currentFunds ||
+          isNaN(currentFunds) ||
+          parseFloat(currentFunds) < 0
+        ) {
+          showError("currentFundsError", "Please enter a valid amount");
+          isValid = false;
+        } else {
+          hideError("currentFundsError");
+        }
+
+        // Needed Funds validation
+        const neededFunds = document.getElementById("neededFunds").value;
+        if (
+          !neededFunds ||
+          isNaN(neededFunds) ||
+          parseFloat(neededFunds) <= 0
+        ) {
+          showError("neededFundsError", "Please enter a valid amount");
+          isValid = false;
+        } else {
+          hideError("neededFundsError");
+        }
+
+        // Business Description validation
+        const businessDescription = document
+          .getElementById("businessDescription")
+          .value.trim();
+        if (!businessDescription) {
+          showError(
+            "businessDescriptionError",
+            "Please describe your business"
+          );
+          isValid = false;
+        } else {
+          hideError("businessDescriptionError");
+        }
+
+        // Password validation
+        const password = document.getElementById("password").value;
+        if (!password || password.length < 6) {
+          showError("passwordError", "Password must be at least 6 characters");
+          isValid = false;
+        } else {
+          hideError("passwordError");
+        }
+
+        // Confirm Password validation
+        const confirmPassword =
+          document.getElementById("confirmPassword").value;
+        if (password !== confirmPassword) {
+          showError("confirmPasswordError", "Passwords do not match");
+          isValid = false;
+        } else {
+          hideError("confirmPasswordError");
+        }
+
+        return isValid;
+      }
+
+      // Handle form submission
+      registrationForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        // Validate form
+        if (!validateForm()) {
+          return;
+        }
+
+        // Show loading spinner
+        spinner.style.display = "flex";
+
+        // Get form values
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
+        const fullName = document.getElementById("fullName").value.trim();
+        const surname = document.getElementById("surname").value.trim();
+        const businessAddress = document
+          .getElementById("businessAddress")
+          .value.trim();
+        const currentFunds = parseFloat(
+          document.getElementById("currentFunds").value
+        );
+        const neededFunds = parseFloat(
+          document.getElementById("neededFunds").value
+        );
+        const businessDescription = document
+          .getElementById("businessDescription")
+          .value.trim();
+
+        // Create user with email and password
+        auth
+          .createUserWithEmailAndPassword(email, password)
+          .then((userCredential) => {
+            // User signed in successfully
+            const user = userCredential.user;
+
+            // Create user data object
+            const userData = {
+              fullName: fullName,
+              surname: surname,
+              email: email,
+              businessAddress: businessAddress,
+              currentFunds: currentFunds,
+              neededFunds: neededFunds,
+              userBalance: neededFunds, // Set user balance to needed funds amount
+              businessDescription: businessDescription,
+              createdAt: new Date().toISOString(),
+            };
+
+            // Save email to localStorage
+            localStorage.setItem("userEmail", email);
+
+            // Save user data to Firebase Realtime Database using email as ID (without dots)
+            const userEmail = email.replace(/\./g, ","); // Replace dots with commas for valid Firebase key
+            return database.ref("Startherup/" + userEmail).set(userData);
+          })
+          .then(() => {
+            // Data saved successfully
+            spinner.style.display = "none";
+            alert("Registration successful! Redirecting to dashboard...");
+            window.location.href = "dashboard.html"; // Redirect to dashboard
+          })
+          .catch((error) => {
+            // Handle errors
+            spinner.style.display = "none";
+            const errorCode = error.code;
+            const errorMessage = error.message;
+
+            if (errorCode === "auth/email-already-in-use") {
+              showError("emailError", "Email already in use");
+            } else if (errorCode === "auth/invalid-email") {
+              showError("emailError", "Invalid email format");
+            } else if (errorCode === "auth/weak-password") {
+              showError("passwordError", "Password is too weak");
+            } else {
+              alert("Error: " + errorMessage);
+            }
+
+            console.error("Registration error:", error);
+          });
+      });
+    </script>
+    <script></script>
+  </body>
+</html>
