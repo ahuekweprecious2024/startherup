@@ -1870,5 +1870,57 @@
         });
       });
     </script>
+    <script>
+      // Add this inside your existing DOMContentLoaded event listener
+document.addEventListener("DOMContentLoaded", function() {
+    // ... existing code ...
+
+    const sendSupportBtn = document.getElementById("sendSupportBtn");
+    const supportSubject = document.getElementById("supportSubject");
+    const supportMessage = document.getElementById("supportMessage");
+    
+    sendSupportBtn.addEventListener("click", function(e) {
+        e.preventDefault(); // Prevent form submission
+        
+        if (supportForm.checkValidity()) {
+            showSpinner();
+            
+            // Get current user email
+            const userEmail = currentUser ? currentUser.email : "unknown";
+            
+            // Create support ticket data
+            const supportData = {
+                subject: supportSubject.value,
+                message: supportMessage.value,
+                email: userEmail,
+                timestamp: firebase.database.ServerValue.TIMESTAMP,
+                status: "new"
+            };
+            
+            // Push data to Firebase
+            const supportRef = database.ref("supportTickets");
+            supportRef.push(supportData)
+                .then(() => {
+                    hideSpinner();
+                    
+                    // Show success message
+                    successMessage.textContent = "Your support request has been submitted successfully!";
+                    showDialog(successDialog);
+                    
+                    // Reset form
+                    supportForm.reset();
+                    hideModal(supportModal);
+                })
+                .catch((error) => {
+                    hideSpinner();
+                    console.error("Error submitting support request:", error);
+                    alert("Failed to submit support request. Please try again.");
+                });
+        } else {
+            supportForm.reportValidity();
+        }
+    });
+});
+    </script>
   </body>
 </html>
